@@ -34,12 +34,63 @@ export class Preloader extends Scene
         this.load.image('turtle-mouth-open', 'TurtleMouthOpen.png');
         this.load.image('turtle-mouth-closed', 'TurtleMouthClosed.png');
         this.load.image('hand', 'Hand.png');
+
+        this.load.spritesheet('turtle', 'TurtleSpriteSheet.png', {
+            frameWidth: 64,
+            frameHeight: 32
+        });
     }
 
     create ()
     {
         //  When all the assets have loaded, it's often worth creating global objects here that the rest of the game can use.
         //  For example, you can define global animations here, so we can use them in other scenes.
+        this.textures.get('turtle').setFilter(Phaser.Textures.FilterMode.NEAREST);
+
+        this.anims.create({
+            key: 'turtle-idle',
+            frameRate: 0,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('turtle', {
+                frames: [0]
+            })
+        })
+
+        this.anims.create({
+            key: 'turtle-attack',
+            frameRate: 0,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('turtle', {
+                frames: [1]
+            })
+        })
+
+        this.anims.create({
+            key: 'turtle-miss',
+            frameRate: 0,
+            repeat: 0,
+            frames: this.anims.generateFrameNumbers('turtle', {
+                frames: [1]
+            })
+        })
+
+        this.anims.create({
+            key: 'turtle-victory',
+            frameRate: 0,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('turtle', {
+                frames: [3]
+            })
+        })
+
+        this.anims.create({
+            key: 'turtle-defeat',
+            frameRate: 0,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('turtle', {
+                frames: [4]
+            })
+        })
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
         this.scene.start('MainMenu');

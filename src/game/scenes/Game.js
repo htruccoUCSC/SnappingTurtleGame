@@ -22,8 +22,11 @@ export class Game extends Scene
         this.mouthX = this.centerX;
         this.mouthY = this.centerY;
 
-        this.mouthOpen = this.add.image(this.mouthX, this.mouthY, 'turtle-mouth-open').setOrigin(0.5).setDepth(2);
-        this.mouthClosed = this.add.image(this.mouthX, this.mouthY, 'turtle-mouth-closed').setOrigin(0.5).setDepth(3).setVisible(false);
+        // this.mouthClosed = this.add.image(this.mouthX, this.mouthY, 'turtle-mouth-closed').setOrigin(0.5).setDepth(3).setVisible(false);
+        // this.mouthOpen = this.add.image(this.mouthX, this.mouthY, 'turtle-mouth-open').setOrigin(0.5).setDepth(2);
+
+        this.mouthClosed = this.add.sprite(this.mouthX, this.mouthY, 'turtle', 0).setScale(8).setOrigin(0.5).setDepth(3).setVisible(false);
+        this.mouthOpen = this.add.sprite(this.mouthX, this.mouthY, 'turtle', 1).setScale(8).setOrigin(0.5).setDepth(2);
 
         // Hand - start off-screen to the right. Use origin (1,0.5) so scaleX reduces from the right edge inward.
     this.handY = this.mouthY + Math.round(this.mouthOpen.displayHeight * 0.18) - 90;
