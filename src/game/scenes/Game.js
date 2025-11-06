@@ -308,9 +308,9 @@ export class Game extends Scene {
     this.handMash = 0;
     this.updateMashBar();
 
-    const slamInDur = 80; // very fast in (ms)
-    const slapPause = 60; // brief window in mouth for possible bite (ms)
-    const slamOutDur = 200; // quick retreat
+    const slamInDur = 40; // very fast in (ms)
+    const slapPause = 20; // brief window in mouth for possible bite (ms)
+    const slamOutDur = 60; // quick retreat
 
     // Animate in very fast
     this.tweens.add({
