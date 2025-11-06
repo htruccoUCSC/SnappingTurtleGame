@@ -34,11 +34,13 @@ export class Preloader extends Scene
         this.load.image('turtle-mouth-open', 'TurtleMouthOpen.png');
         this.load.image('turtle-mouth-closed', 'TurtleMouthClosed.png');
         this.load.image('hand', 'Hand.png');
-
         this.load.spritesheet('turtle', 'TurtleSpriteSheet.png', {
             frameWidth: 64,
             frameHeight: 32
         });
+
+        this.load.audio('bite', 'carrotnom-92106.mp3');
+        this.load.audio('miss', 'PufferfishBite.mp3');
     }
 
     create ()

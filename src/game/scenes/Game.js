@@ -132,6 +132,7 @@ export class Game extends Scene {
     // Input handling
     this.isMouthClosed = false;
     this.isBiting = false;
+    this.isLKeyPressed = false; // Track L key state to prevent holding
 
     // Controls: 'A' = turtle (close/open mouth), 'L' = hand (advance/withdraw).
     // Use Phaser's key-specific events for clarity.
@@ -143,6 +144,12 @@ export class Game extends Scene {
     });
 
     this.input.keyboard.on("keydown-L", () => {
+      // Prevent holding L key - only count discrete presses
+      if (this.isLKeyPressed) {
+        return;
+      }
+      this.isLKeyPressed = true;
+
       // Hand player pushes the hand in (mash meter increment)
       // Each keydown-L counts as one mash.
       // Ensure a hand exists so player sees the target.
@@ -158,6 +165,11 @@ export class Game extends Scene {
       );
       // Optional: immediate visual update handled in update(), but update now so UI is responsive
       this.updateMashBar();
+    });
+
+    this.input.keyboard.on("keyup-L", () => {
+      // Reset L key state when released
+      this.isLKeyPressed = false;
     });
     // K key triggers a very fast 'slap' — quick in-and-out of the hand.
     this.input.keyboard.on("keydown-K", () => {
@@ -331,6 +343,7 @@ export class Game extends Scene {
             onComplete: () => {
               // If this slam completed without being bitten, award a point to the slapper
               if (!this._biteHandled) {
+                this.sound.play('miss');
                 this.rightScore = (this.rightScore || 0) + 1;
                 if (this.rightScoreText) {
                   this.rightScoreText.setText("Slapper: " + this.rightScore);
@@ -401,6 +414,7 @@ export class Game extends Scene {
       if (this.hand) {
         this.hand.setTint(0xff0000);
       }
+      this.sound.play('bite');
       // Clear tint shortly after
       this.time.delayedCall(300, () => {
         if (this.hand) {
